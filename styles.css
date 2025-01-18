@@ -151,3 +151,54 @@ main > div {
 	margin-right: 10%;
 	font-size: 16px;
 }
+
+@media screen AND (max-width: 500px) {
+#logo {
+	height: 75%;
+}
+
+#mainImage {
+	height: 50%;
+	margin-top: 10%;
+	margin-right: 8%;
+}
+
+h1 {
+	font-size: 4vw;
+}
+
+nav ul {
+	width: 70vw;
+	margin-right: 8vw;
+}
+
+main {
+	flex-direction: column;
+	justify-content: flex-start;
+	height: 78vh;
+}
+
+main > div {
+	color: white;
+	font-size: 16px;
+	margin-right: 0;
+	text-align: center;
+}
+
+section {
+	display: none;
+}
+
+footer ul {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50vw;
+	font-size: 10px;
+	list-style-type: none;
+	
+}
+
+
+	
+}
