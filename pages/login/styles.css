@@ -37,7 +37,14 @@ form {
 	width: 100%;
 }
 
-.submitButton {
+#notImplemented {
+	display: none;
+	width: 70%;
+	margin-left: 10%;
+	color: red;
+}
+
+#submitButton {
 	padding: 10px 70px;
 	margin-top: 10px;
 	border: 2px solid #f7cd16;
@@ -65,5 +72,12 @@ form {
 
 img {
 	width: 20vw;
+}
+
+#notImplemented {
+	display: none;
+	width: 70%;
+	margin-left: 10%;
+	color: red;
 }
 }
