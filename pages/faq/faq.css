@@ -25,7 +25,6 @@ nav {
 	flex-direction: row;
 	justify-content: center;
 	border-top: 2px solid #f7cd16;
-	border-bottom: 3px solid #46c53b;
 	height: 5vh;
 }
 
@@ -41,6 +40,10 @@ nav ul {
 	margin: 1vh;
 	width: 30vw;
 	margin-right: 4vw;
+}
+
+nav li {
+	border-bottom: 3px solid #46c53b;
 }
 
 a:link {
@@ -102,7 +105,6 @@ details {
 	align-items: center;
 	border-bottom: 4px solid #46c53b;
 	height: 70.7vh;
-	border-top: 2px solid #f7cd16;
 }
 
 h2 {

@@ -22,10 +22,13 @@ header {
 nav {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
+	justify-content: flex-end;
 	border-top: 2px solid #f7cd16;
-	border-bottom: 4px solid #46c53b;
 	height: 5vh;
+}
+
+nav li {
+	border-bottom: 3px solid #46c53b;
 }
 
 #logo {
@@ -35,6 +38,7 @@ nav {
 #mainImage {
 	height: 80%;
 	margin-left: 10%;
+	margin-bottom: 1.5%;
 }
 
 .sectionImage {
@@ -83,7 +87,6 @@ main {
 	align-items: center;
 	gap: 10vw;
 	height: 78vh;
-	border-top: 3px solid #f7cd16;
 	border-bottom: 4px solid #46c53b;
 }
 
@@ -127,7 +130,7 @@ footer ul {
 }
 
 span {
-	color: #46c53b;
+	color: black;
 	font-size: 14px;
 	font-weight: bold;
 	margin-left: 10vw;
