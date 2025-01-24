@@ -1,0 +1,135 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Krona One";
+}
+
+header {
+	display: flex;
+	justify-content: flex-start;
+	background: black;
+	height: 7vh;
+	border-bottom: 2px solid #46c53b;
+}
+
+.todayContainer {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 20vw;
+	height: 7vh;
+	margin-left: 1vw;
+}
+
+.logoContainer {
+	display: flex;
+	justify-content: center;
+	width: 20vw;
+	height: 7vh;
+	margin-left: 19vw;
+}
+
+.today {
+	color: white;
+	font-weight: bold;
+	margin: 0 2vw 0 2vw;
+}
+
+header img {
+	height: 100%;
+}
+
+.arrow {
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+a:link {
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:visited {
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #46c53b;
+	font-size: 24px;
+	border-top: 2px solid #f7cd16;
+	background: #e2e3dd;
+	height: 93vh;
+}
+
+#startNewWorkout {
+	padding: 10px 70px;
+	margin-top: 3vh;
+	border: 2px solid #f7cd16;
+	background: #46c53b;
+	color: white;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+	font-size: 16px;
+	border-radius: 30px;
+}
+
+.modal {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0,0,0,0.4);
+}
+
+#modalWindow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5vh;
+	width: 50vw;
+	height: 86vh;
+	background: #e2e3dd;
+	margin: auto;
+	border-radius: 12px;
+	border: 4px solid #46c53b;
+	color: white;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+#close {
+	width: 1.5vw;
+	margin: 1vw 1vw 0 0;
+	font-size: 20px;
+	align-self: flex-end;
+}
+
+#close:hover {
+  cursor: pointer;
+}
+
+div > h2 {
+	color: black;
+	text-decoration: underline black;
+}
+
+h2 + p {
+	color: red;
+}
