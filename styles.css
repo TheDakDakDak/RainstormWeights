@@ -14,7 +14,7 @@ header {
 	justify-content: center;
 	align-items: center;
 	gap: 0.5vw;
-	height: 14vh;
+	height: 12.5vh;
 	background: #e2e3dd;
 	border-bottom: 3px solid #46c53b;
 }
@@ -160,8 +160,9 @@ main > div {
 }
 
 @media screen AND (max-width: 500px) {
-
-
+header {
+	height: 9vh;
+}
 #logo {
 	height: 75%;
 }
@@ -184,7 +185,7 @@ nav ul {
 main {
 	flex-direction: column;
 	justify-content: flex-start;
-	height: 78vh;
+	height: 84vh;
 }
 
 main > div {
