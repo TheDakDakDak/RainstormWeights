@@ -132,4 +132,52 @@ div > h2 {
 
 h2 + p {
 	color: red;
+	align-self: center;
+}
+
+@media screen AND (max-width:500px) {
+.todayContainer {
+	order: 2;
+	width: 25vw;
+	margin-left: 14vw;
+}
+
+.logoContainer {
+	order: 1;
+	margin-left: 1vw;
+}
+
+.today {
+	margin: 0 4vw 0 4vw;
+}
+
+.arrow {
+	font-size: 20px;
+}
+
+main {
+	font-size: 24px;
+	border-top: 1px solid #f7cd16;
+}
+
+#modalWindow {
+	width: 92vw;
+	border: 3px solid #46c53b;
+}
+
+#close {
+	width: 4vw;
+	margin: 2vw 2vw 0 0;
+	font-size: 20px;
+}
+
+h2 + p {
+	margin-left: 12vw;
+	margin-right: 12vw;
+}
+
+#noWorkouts {
+	font-size: 3.5vw;
+}
+
 }
