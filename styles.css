@@ -155,7 +155,13 @@ main > div {
 	font-size: 16px;
 }
 
+#linkPreview {
+	display: none;
+}
+
 @media screen AND (max-width: 500px) {
+
+
 #logo {
 	height: 75%;
 }
@@ -172,7 +178,7 @@ h1 {
 
 nav ul {
 	width: 70vw;
-	margin-right: 8vw;
+	margin-right: 13vw;
 }
 
 main {
@@ -200,6 +206,19 @@ footer ul {
 	font-size: 10px;
 	list-style-type: none;
 	
+}
+
+#linkPreview {
+	display: block;
+	font-size: 10px;
+}
+
+header > h1 {
+	margin-right: 2vw;
+}
+
+header > img {
+	margin-right: 2vw;
 }
 
 
