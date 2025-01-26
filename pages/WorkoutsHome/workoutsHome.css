@@ -1,9 +1,9 @@
 * {
-	margin: 0;
 	box-sizing: border-box;
+	margin: 0;
 	font-family: "Krona One";
 }
-
+/*HEADER ITEMS*/
 header {
 	display: flex;
 	justify-content: flex-start;
@@ -14,68 +14,59 @@ header {
 
 .todayContainer {
 	display: flex;
+	width: 47%;
 	justify-content: flex-start;
 	align-items: center;
-	width: 20vw;
-	height: 7vh;
 	margin-left: 1vw;
 }
 
 .logoContainer {
-	display: flex;
-	justify-content: center;
-	width: 20vw;
-	height: 7vh;
-	margin-left: 19vw;
+	width: 53%;
 }
 
-.today {
+header div + div > img {
+	height: 100%;
+}
+
+#today {
 	color: white;
 	font-weight: bold;
 	margin: 0 2vw 0 2vw;
 }
 
-header img {
-	height: 100%;
-}
 
-.arrow {
+#arrowLeft, #arrowRight {
 	color: white;
 	font-size: 15px;
 	font-weight: bold;
 }
 
-a:link {
-	color: white;
-	text-decoration: none;
-	font-weight: bold;
+#arrowLeft:hover, #arrowRight:hover, #calendar:hover {
+	cursor: pointer;
 }
 
-a:hover {
-	color: white;
-	text-decoration: none;
-	font-weight: bold;
+#calendar {
+	height: 50%;
+	margin-left: 1vw;
 }
 
-a:visited {
-	color: white;
-	text-decoration: none;
-	font-weight: bold;
-}
-
+/*Main Container*/
 main {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	color: #46c53b;
-	font-size: 24px;
 	border-top: 2px solid #f7cd16;
 	background: #e2e3dd;
 	height: 93vh;
 }
 
-#startNewWorkout {
+main > h2 {
+	color: #46c53b;
+	font-size: 24px;
+}
+
+#startWorkoutButton {
 	padding: 10px 70px;
 	margin-top: 3vh;
 	border: 2px solid #f7cd16;
@@ -86,6 +77,7 @@ main {
 	border-radius: 30px;
 }
 
+/*Modal for workout entry*/
 .modal {
 	display: none;
 	justify-content: center;
@@ -107,77 +99,126 @@ main {
 	width: 50vw;
 	height: 86vh;
 	background: #e2e3dd;
-	margin: auto;
 	border-radius: 12px;
-	border: 4px solid #46c53b;
-	color: white;
+	border: 3px solid #46c53b;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-#close {
-	width: 1.5vw;
-	margin: 1vw 1vw 0 0;
-	font-size: 20px;
-	align-self: flex-end;
-}
-
-#close:hover {
-  cursor: pointer;
-}
-
-div > h2 {
-	color: black;
-	text-decoration: underline black;
 }
 
 h2 + p {
 	color: red;
-	align-self: center;
 }
+
+
+/*Modal for date entry*/
+.modal2 {
+	display: none;
+	justify-content: flex-start;
+	align-items: flex-start;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0,0,0,0.4);
+}
+
+#calendarWindow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2vh;
+	width: 25vw;
+	height: 50vh;
+	background: #e2e3dd;
+	border-radius: 12px;
+	border: 3px solid #46c53b;
+	color: black;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+.dateSelect {
+	margin-bottom: 1vh;
+}
+
+#calendarWindow > form {
+	height: 75%;
+	text-align: center;
+}
+
+#daySelect {
+	width: 20%;
+}
+
+#calendarButton {
+	height: 10%;
+	width: 40%;
+	margin-top: 1vh;
+	border: 2px solid #f7cd16;
+	background: #46c53b;
+	color: white;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+	font-size: 12px;
+	border-radius: 30px;
+}
+
+/*Close buttons*/
+#close, #close2 {
+	width: 1.5vw;
+	margin: 1vw 1vw 0 0;
+	align-self: flex-end;
+}
+
+#close:hover, #close2:hover {
+  cursor: pointer;
+}
+
+
+
 
 @media screen AND (max-width:500px) {
 .todayContainer {
 	order: 2;
-	width: 25vw;
-	margin-left: 14vw;
+	width: 67%;
 }
 
 .logoContainer {
 	order: 1;
-	margin-left: 1vw;
+	width: 33%;
 }
 
-.today {
+#today {
 	margin: 0 4vw 0 4vw;
 }
 
-.arrow {
-	font-size: 20px;
+#calendar {
+	margin-left: 4vw;
 }
 
-main {
-	font-size: 24px;
-	border-top: 1px solid #f7cd16;
+main > h2 {
+	font-size: 3.5vw;
 }
 
 #modalWindow {
 	width: 92vw;
-	border: 3px solid #46c53b;
-}
-
-#close {
-	width: 4vw;
-	margin: 2vw 2vw 0 0;
-	font-size: 20px;
 }
 
 h2 + p {
-	margin-left: 12vw;
-	margin-right: 12vw;
+	font-size: 80%;
 }
 
-#noWorkouts {
-	font-size: 3.5vw;
+.modal2 {
+	justify-content: center;
+	align-items: center;
 }
 
+#calendarWindow {
+	width: 92vw;
+}
+
+#close, #close2 {
+	width: 4vw;
+	margin: 3vw 3vw 0 0;
+	align-self: flex-end;
+}
 }

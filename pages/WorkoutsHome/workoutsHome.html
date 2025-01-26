@@ -10,20 +10,22 @@
 <body>
 	<header>
 		<div class="todayContainer">
-			<a href="#"><span class="arrow"><</span></a>
-			<span class="today">Today</span>
-			<a href="#"><span class="arrow">></span></a>
+			<span id="arrowLeft"><</span>
+			<span id="today">Today</span>
+			<span id="arrowRight">></span>
+			<img id="calendar" src="../../media/images/calendarIcon.png">
 		</div>
 		<div class="logoContainer">
 			<img src="../../media/images/rainstormweightslogo_transparent.png">
 		</div>
 	</header>
 	<main>
-		<p id="noWorkouts">You haven't logged any workouts today.</p>
+		<h2>You haven't logged any workouts today.</h2>
 		<form>
-			<input id="startNewWorkout" type="button" value="Start New Workout">
+			<input id="startWorkoutButton" type="button" value="Start New Workout">
 		</form>
 	</main>
+	<!--Modals -->
 	<div class="modal" id="modalContainer">
 		<div id="modalWindow">
 			<img id="close" src="../../media/images/closeIcon.png">
@@ -31,6 +33,27 @@
 			<p>Note: This functionality is not yet implemented.</p>
 		</div>
 	</div>
+	<div class="modal2" id="calendarContainer">
+		<div id="calendarWindow">
+			<img id="close2" src="../../media/images/closeIcon.png">
+			<h3>Enter Date:</h3>
+			<form>
+				<p>Year:</p>
+				<select name="year" id="yearSelect" class="dateSelect">
+				<option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option>
+				</select>
+				<p>Month:</p>
+				<select name="month" id="monthSelect" class="dateSelect">
+				<option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
+				</select>
+				<p>Day:</p>
+				<input type="text" id="daySelect" class="dateSelect">
+				<br>
+				<input type="button" id="calendarButton" value="Submit">
+			</form>
+		</div>
+	</div>
+	<!--End Modals -->
 	<script type="text/javascript" src="workoutsHome.js"></script>
 </body>
 </html>
