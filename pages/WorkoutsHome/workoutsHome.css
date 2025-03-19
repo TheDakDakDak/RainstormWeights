@@ -152,8 +152,8 @@ h2 + p {
 
 #calendarButton {
 	height: 10%;
-	width: 40%;
-	margin-top: 1vh;
+	width: 50%;
+	margin-top: 2vh;
 	border: 2px solid #f7cd16;
 	background: #46c53b;
 	color: white;

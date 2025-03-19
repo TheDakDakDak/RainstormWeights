@@ -21,20 +21,25 @@ function calendarMenu() {
 }
 
 function dateSelect() {
-	let year1 = document.querySelector('#yearSelect').value;
-	let month1 = document.querySelector('#monthSelect').value;
-	let day1 = document.querySelector('#daySelect').value;
+	let dateInput = document.querySelector('#dateData').value;
+	let [year1, month1, day1] = dateInput.split("-");
 	
-	if(window.innerWidth >= 501) {
-		let date1 = `${month1} ${day1}, ${year1}`;
-		document.querySelector('#today').innerText = date1;
-	}
-	else {
-		year1 = year1.slice(-2);
-		month1 = month1.slice(0, 3);
-		let date1 = `${month1} ${day1}, ${year1}`;
-		document.querySelector('#today').innerText = date1;
-	}
+	switch (month1) {
+        case "01": month1 = "Jan"; break;
+        case "02": month1 = "Feb"; break;
+        case "03": month1 = "Mar"; break;
+        case "04": month1 = "Apr"; break;
+        case "05": month1 = "May"; break;
+        case "06": month1 = "Jun"; break;
+        case "07": month1 = "Jul"; break;
+        case "08": month1 = "Aug"; break;
+        case "09": month1 = "Sep"; break;
+        case "10": month1 = "Oct"; break;
+        case "11": month1 = "Nov"; break;
+        case "12": month1 = "Dec"; break;
+    }
+	document.querySelector('#today').innerText = `${month1} ${day1}, ${year1}`;
+	
 	
 	document.querySelector('.modal2').style.display = 'none';
 }
