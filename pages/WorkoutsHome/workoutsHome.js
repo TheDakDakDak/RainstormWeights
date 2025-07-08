@@ -43,12 +43,50 @@ document.querySelector('#saveSet').addEventListener('click', () => {
   }
 
   localStorage.setItem('savedWorkouts', JSON.stringify(savedWorkouts));
+  const exerciseBoxes = document.querySelectorAll(".exercise-box");
+  const targetBox = Array.from(exerciseBoxes).find(box =>
+    box.querySelector("h3")?.textContent === currentExercise
+  );
 
-  // Clear inputs for the next set
-  document.querySelector('#repsInput').value = '';
-  document.querySelector('#weightInput').value = '';
+  if (targetBox) {
+  const setNumber = exerciseEntry.sets.length;
+  const p = document.createElement("p");
+  p.textContent = `${setNumber}: ${weight}lbs, ${reps} reps`;
 
-  alert(`Set saved for ${currentExercise}`);
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "D";
+  delBtn.style.marginLeft = "8px";
+  delBtn.style.backgroundColor = "red";
+  delBtn.style.color = "white";
+  delBtn.style.border = "none";
+  delBtn.style.padding = "1px 4px";
+  delBtn.style.fontSize = "10px";
+  delBtn.style.lineHeight = "1";
+  delBtn.style.borderRadius = "2px";
+  delBtn.style.cursor = "pointer";
+  delBtn.title = "Delete this set";
+
+  delBtn.addEventListener("click", () => {
+    const saved = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
+    const today = new Date().toISOString().split("T")[0];
+    const todayWorkout = saved.find(w => w.date === today);
+    if (todayWorkout) {
+      const exerciseEntry = todayWorkout.workout.find(e => e.exercise === currentExercise);
+      if (exerciseEntry) {
+        exerciseEntry.sets.splice(setNumber - 1, 1);
+        localStorage.setItem("savedWorkouts", JSON.stringify(saved));
+        displayTodaysWorkout();
+      }
+    }
+  });
+
+  p.appendChild(delBtn);
+  targetBox.appendChild(p);
+  } else {
+    displayTodaysWorkout();
+  }
+
+  showToast(`Set Saved!`);
 });
 
 const exercisesByPart = {
@@ -170,23 +208,116 @@ function displayTodaysWorkout() {
     const box = document.createElement("div");
     box.classList.add("exercise-box");
 
-    const heading = document.createElement("h3");
-    heading.textContent = entry.exercise;
-    box.appendChild(heading);
+    const headingContainer = document.createElement("div");
+headingContainer.style.display = "flex";
+headingContainer.style.alignItems = "center";
+headingContainer.style.justifyContent = "space-between";
 
-	let setCount = 1;
-    // Add each set as a paragraph
-    entry.sets.forEach(set => {
+const heading = document.createElement("h3");
+heading.textContent = entry.exercise;
+heading.style.margin = "0";
+
+const addSetBtn = document.createElement("button");
+addSetBtn.textContent = "+";
+addSetBtn.style.backgroundColor = "green";
+addSetBtn.style.color = "white";
+addSetBtn.style.border = "none";
+addSetBtn.style.padding = "2px 8px";
+addSetBtn.style.fontSize = "16px";
+addSetBtn.style.borderRadius = "4px";
+addSetBtn.style.cursor = "pointer";
+
+// 🔗 Link the button to open the modal for this specific exercise
+addSetBtn.addEventListener("click", () => {
+  currentExercise = entry.exercise;
+
+  // Ensure currentWorkout is set up properly for today
+  const dateText = new Date().toISOString().split("T")[0];
+  currentWorkout.date = dateText;
+
+  // Show the modal if it's not already shown
+  document.querySelector(".modal").style.display = "flex";
+
+  // Hide the other modal sections and show only the reps form
+  document.getElementById("bodyPartSelect").style.display = "none";
+  document.getElementById("exerciseSelect").style.display = "none";
+  document.getElementById("repsForm").style.display = "block";
+
+  // Update the heading
+  document.getElementById("exerciseHeading").textContent = entry.exercise;
+});
+
+headingContainer.appendChild(heading);
+headingContainer.appendChild(addSetBtn);
+box.appendChild(headingContainer);
+
+    let setCount = 1;
+
+    entry.sets.forEach((set, setIndex) => {
       const p = document.createElement("p");
       p.textContent = `${setCount}: ${set.weight}lbs, ${set.reps} reps`;
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "D";
+      delBtn.style.marginLeft = "8px";
+	  delBtn.style.backgroundColor = "red";
+	  delBtn.style.color = "white";
+	  delBtn.style.border = "none";
+	  delBtn.style.padding = "1px 4px";
+	  delBtn.style.fontSize = "10px";
+	  delBtn.style.lineHeight = "1";
+	  delBtn.style.borderRadius = "2px";
+	  delBtn.style.cursor = "pointer";
+      delBtn.title = "Delete this set";
+
+      delBtn.addEventListener("click", () => {
+  const saved = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
+  const today = new Date().toISOString().split("T")[0];
+  const todayWorkout = saved.find(w => w.date === today);
+  if (todayWorkout) {
+    const exerciseEntry = todayWorkout.workout.find(e => e.exercise === entry.exercise);
+    if (exerciseEntry) {
+      exerciseEntry.sets.splice(setIndex, 1);
+
+      // ✅ Check if there are no sets left
+      if (exerciseEntry.sets.length === 0) {
+        // Remove the entire exercise entry
+        todayWorkout.workout = todayWorkout.workout.filter(e => e.exercise !== entry.exercise);
+      }
+
+      // ✅ If no exercises are left, remove the whole workout (optional, you can skip this part if you want)
+      if (todayWorkout.workout.length === 0) {
+        const index = saved.findIndex(w => w.date === today);
+        if (index !== -1) {
+          saved.splice(index, 1);
+        }
+        document.querySelector("main").style.display = "block";
+      }
+
+      localStorage.setItem("savedWorkouts", JSON.stringify(saved));
+      displayTodaysWorkout(); // Re-render
+    }
+  }
+});
+
+      p.appendChild(delBtn);
       box.appendChild(p);
-	  setCount++
+      setCount++;
     });
 
-    container.appendChild(box); // ✅ Append this box to the container
+    container.appendChild(box); // ✅ You were missing this line too!
   });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
   displayTodaysWorkout();
 });
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 2000); // Hide after 2 seconds
+}
