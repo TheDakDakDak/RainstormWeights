@@ -221,4 +221,35 @@ h2 + p {
 	margin: 3vw 3vw 0 0;
 	align-self: flex-end;
 }
+
+#bodyPartSelect ul, #exerciseSelect ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#bodyPartSelect li, #exerciseList li {
+  padding: 10px;
+  margin: 5px;
+  background-color: #46c53b;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+
+#bodyPartSelect li:hover, #exerciseList li:hover {
+  background-color: #3aa92f;
+}
+
+#backButton {
+  margin-top: 2vh;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 2px solid #f7cd16;
+  background: #46c53b;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+}
 }

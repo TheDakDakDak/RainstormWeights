@@ -4,6 +4,56 @@ document.querySelector('#close2').addEventListener('click', closeWindow2);
 document.querySelector('#calendar').addEventListener('click', calendarMenu);
 document.querySelector('#calendarButton').addEventListener('click', dateSelect);
 
+const exercisesByPart = {
+	chest: ["Bench Press", "Incline Bench Press", "Push-ups"],
+	legs: ["Squats", "Lunges", "Leg Press"],
+	arms: ["Bicep Curls", "Tricep Dips", "Hammer Curls"],
+	shoulders: ["Overhead Press", "Lateral Raises", "Front Raises"],
+	back: ["Pull-ups", "Deadlifts", "Bent-over Rows"]
+};
+
+document.querySelectorAll('.body-part').forEach(item => {
+	item.addEventListener('click', () => {
+		const part = item.dataset.part;
+		showExercises(part);
+	});
+});
+
+document.querySelector('#backButton').addEventListener('click', () => {
+  document.querySelector('#exerciseSelect').style.display = 'none';
+  document.querySelector('#bodyPartSelect').style.display = 'block';
+});
+
+
+function showExercises(part) {
+  const exerciseList = document.querySelector('#exerciseList');
+  exerciseList.innerHTML = "";
+
+  exercisesByPart[part].forEach(exercise => {
+    const li = document.createElement('li');
+    li.textContent = exercise;
+	li.addEventListener('click', () => {
+		openRepsForm(exercise);
+	});
+    exerciseList.appendChild(li);
+  });
+
+  document.querySelector('#bodyPartSelect').style.display = 'none';
+  document.querySelector('#exerciseSelect').style.display = 'block';
+}
+
+function openRepsForm(exerciseName) {
+  document.querySelector('#exerciseHeading').textContent = exerciseName;
+
+  document.querySelector('#exerciseSelect').style.display = 'none';
+  document.querySelector('#repsForm').style.display = 'block';
+}
+
+document.querySelector('#backToExercises').addEventListener('click', () => {
+  document.querySelector('#repsForm').style.display = 'none';
+  document.querySelector('#exerciseSelect').style.display = 'block';
+});
+
 function workoutMenu() {
 	document.querySelector('.modal').style.display = 'flex';
 }

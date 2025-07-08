@@ -29,8 +29,30 @@
 	<div class="modal" id="modalContainer">
 		<div id="modalWindow">
 			<img id="close" src="../../media/images/closeIcon.png">
-			<h2>Enter Workout Details</h2>
-			<p>Note: This functionality is not yet implemented.</p>
+			<div id="bodyPartSelect">
+				<h3>Select Muscle Group</h3>
+				<ul>
+					<li class="body-part" data-part="chest">Chest</li>
+					<li class="body-part" data-part="legs">Legs</li>
+					<li class="body-part" data-part="arms">Arms</li>
+					<li class="body-part" data-part="shoulders">Shoulders</li>
+					<li class="body-part" data-part="back">Back</li>
+				</ul>
+			</div>
+			<div id="exerciseSelect" style="display: none;">
+				<h3>Select Exercise</h3>
+				<ul id="exerciseList"></ul>
+				<button id="backButton">Back</button>
+			</div>
+			<div id="repsForm" style="display: none;">
+				<h3 id="exerciseHeading">Exercise Name</h3>
+				<form>
+					<label>Reps: <input type="number" id="repsInput"></label><br>
+					<label>Weight: <input type="number" id="weightInput"></label><br>
+					<input type="button" id="saveSet" value="Save Set">
+		        </form>
+				<button id="backToExercises" type="button">Back</button>
+			</div>
 		</div>
 	</div>
 	<div class="modal2" id="calendarContainer">
