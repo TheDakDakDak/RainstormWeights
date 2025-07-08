@@ -191,7 +191,7 @@ function dateSelect() {
 
 function displayTodaysWorkout() {
   const container = document.getElementById("exerciseSummaryContainer");
-  container.innerHTML = ""; // ✅ only clear once
+  container.innerHTML = ""; 
 
   const workouts = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
   const today = new Date().toISOString().split("T")[0];
@@ -199,11 +199,11 @@ function displayTodaysWorkout() {
   const todaysWorkout = workouts.find(w => w.date === today);
   if (!todaysWorkout) return;
 
-  // ✅ Hide main if workout exists
+ 
   const mainElement = document.querySelector("main");
   if (mainElement) mainElement.style.display = "none";
 
-  // ✅ Loop through all exercises and render them
+  
   todaysWorkout.workout.forEach(entry => {
     const box = document.createElement("div");
     box.classList.add("exercise-box");
@@ -227,23 +227,23 @@ addSetBtn.style.fontSize = "16px";
 addSetBtn.style.borderRadius = "4px";
 addSetBtn.style.cursor = "pointer";
 
-// 🔗 Link the button to open the modal for this specific exercise
+
 addSetBtn.addEventListener("click", () => {
   currentExercise = entry.exercise;
 
-  // Ensure currentWorkout is set up properly for today
+  
   const dateText = new Date().toISOString().split("T")[0];
   currentWorkout.date = dateText;
 
-  // Show the modal if it's not already shown
+  
   document.querySelector(".modal").style.display = "flex";
 
-  // Hide the other modal sections and show only the reps form
+  
   document.getElementById("bodyPartSelect").style.display = "none";
   document.getElementById("exerciseSelect").style.display = "none";
   document.getElementById("repsForm").style.display = "block";
 
-  // Update the heading
+  
   document.getElementById("exerciseHeading").textContent = entry.exercise;
 });
 
@@ -279,23 +279,23 @@ box.appendChild(headingContainer);
     if (exerciseEntry) {
       exerciseEntry.sets.splice(setIndex, 1);
 
-      // ✅ Check if there are no sets left
+      
       if (exerciseEntry.sets.length === 0) {
-        // Remove the entire exercise entry
+        
         todayWorkout.workout = todayWorkout.workout.filter(e => e.exercise !== entry.exercise);
       }
 
-      // ✅ If no exercises are left, remove the whole workout (optional, you can skip this part if you want)
+      
       if (todayWorkout.workout.length === 0) {
         const index = saved.findIndex(w => w.date === today);
         if (index !== -1) {
           saved.splice(index, 1);
         }
-        document.querySelector("main").style.display = "block";
+        document.querySelector("main").style.display = "flex";
       }
 
       localStorage.setItem("savedWorkouts", JSON.stringify(saved));
-      displayTodaysWorkout(); // Re-render
+      displayTodaysWorkout(); 
     }
   }
 });
@@ -305,7 +305,7 @@ box.appendChild(headingContainer);
       setCount++;
     });
 
-    container.appendChild(box); // ✅ You were missing this line too!
+    container.appendChild(box); 
   });
 }
 
@@ -319,5 +319,5 @@ function showToast(message) {
   toast.style.display = "block";
   setTimeout(() => {
     toast.style.display = "none";
-  }, 2000); // Hide after 2 seconds
+  }, 2000); 
 }
