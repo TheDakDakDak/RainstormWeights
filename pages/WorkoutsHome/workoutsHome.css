@@ -3,6 +3,10 @@
 	margin: 0;
 	font-family: "Krona One";
 }
+
+body {
+	background: #e2e3dd;
+}
 /*HEADER ITEMS*/
 header {
 	display: flex;
@@ -21,7 +25,19 @@ header {
 }
 
 .logoContainer {
-	width: 53%;
+	width: 43%;
+}
+
+.addWorkoutPlus {
+	width: 10%;
+}
+
+#plussignclass {
+	height: 90%;
+}
+
+#plussignclass:hover {
+	cursor: pointer;
 }
 
 header div + div > img {
@@ -173,6 +189,53 @@ h2 + p {
   cursor: pointer;
 }
 
+#bodyPartSelect ul, #exerciseSelect ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#bodyPartSelect li, #exerciseList li {
+  padding: 10px;
+  margin: 5px;
+  background-color: #46c53b;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+
+#bodyPartSelect li:hover, #exerciseList li:hover {
+  background-color: #3aa92f;
+}
+
+#backButton {
+  margin-top: 2vh;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 2px solid #f7cd16;
+  background: #46c53b;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#exerciseSummaryContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.exercise-box {
+  border: 3px solid black;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+}
+
 
 
 
@@ -220,36 +283,5 @@ h2 + p {
 	width: 4vw;
 	margin: 3vw 3vw 0 0;
 	align-self: flex-end;
-}
-
-#bodyPartSelect ul, #exerciseSelect ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-#bodyPartSelect li, #exerciseList li {
-  padding: 10px;
-  margin: 5px;
-  background-color: #46c53b;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: center;
-  font-size: 16px;
-}
-
-#bodyPartSelect li:hover, #exerciseList li:hover {
-  background-color: #3aa92f;
-}
-
-#backButton {
-  margin-top: 2vh;
-  padding: 10px 20px;
-  font-size: 14px;
-  border: 2px solid #f7cd16;
-  background: #46c53b;
-  color: white;
-  border-radius: 30px;
-  cursor: pointer;
 }
 }

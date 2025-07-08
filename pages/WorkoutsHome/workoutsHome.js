@@ -1,8 +1,55 @@
+let currentWorkout = {
+  date: null,
+  workout: []
+};
+
+let currentExercise = null;
+
+
 document.querySelector('#startWorkoutButton').addEventListener('click', workoutMenu);
+document.querySelector('#plussignclass').addEventListener('click', workoutMenu);
 document.querySelector('#close').addEventListener('click', closeWindow);
 document.querySelector('#close2').addEventListener('click', closeWindow2);
 document.querySelector('#calendar').addEventListener('click', calendarMenu);
 document.querySelector('#calendarButton').addEventListener('click', dateSelect);
+document.querySelector('#saveSet').addEventListener('click', () => {
+  const reps = document.querySelector('#repsInput').value;
+  const weight = document.querySelector('#weightInput').value;
+
+  if (!reps || !weight || !currentExercise) return; //checks to make sure that reps and weight fields have been filled in.
+
+  //Checks whether the selected exercise is already in the list of today's exercises.
+  let exerciseEntry = currentWorkout.workout.find(e => e.exercise === currentExercise);
+
+  //If not, add it
+  if (!exerciseEntry) {
+    exerciseEntry = {
+      exercise: currentExercise,
+      sets: []
+    };
+    currentWorkout.workout.push(exerciseEntry);
+  }
+
+  // Add the set
+  exerciseEntry.sets.push({ reps: Number(reps), weight: Number(weight) });
+  let savedWorkouts = JSON.parse(localStorage.getItem('savedWorkouts')) || [];
+    // Check if today's workout is already saved
+  const existingIndex = savedWorkouts.findIndex(w => w.date === currentWorkout.date);
+
+  if (existingIndex !== -1) {
+    savedWorkouts[existingIndex] = currentWorkout;
+  } else {
+    savedWorkouts.push(currentWorkout);
+  }
+
+  localStorage.setItem('savedWorkouts', JSON.stringify(savedWorkouts));
+
+  // Clear inputs for the next set
+  document.querySelector('#repsInput').value = '';
+  document.querySelector('#weightInput').value = '';
+
+  alert(`Set saved for ${currentExercise}`);
+});
 
 const exercisesByPart = {
 	chest: ["Bench Press", "Incline Bench Press", "Push-ups"],
@@ -43,8 +90,8 @@ function showExercises(part) {
 }
 
 function openRepsForm(exerciseName) {
+  currentExercise = exerciseName;
   document.querySelector('#exerciseHeading').textContent = exerciseName;
-
   document.querySelector('#exerciseSelect').style.display = 'none';
   document.querySelector('#repsForm').style.display = 'block';
 }
@@ -55,7 +102,17 @@ document.querySelector('#backToExercises').addEventListener('click', () => {
 });
 
 function workoutMenu() {
-	document.querySelector('.modal').style.display = 'flex';
+  const dateText = new Date().toISOString().split("T")[0];
+  currentWorkout.date = dateText;
+
+  // load whatever's already saved for today (or start fresh)
+  const saved = JSON.parse(localStorage.getItem('savedWorkouts')) || [];
+  const todayEntry = saved.find(w => w.date === dateText);
+  currentWorkout.workout = todayEntry
+    ? JSON.parse(JSON.stringify(todayEntry.workout)) // clone array
+    : [];
+
+  document.querySelector('.modal').style.display = 'flex';
 }
 
 function closeWindow() {
@@ -93,3 +150,43 @@ function dateSelect() {
 	
 	document.querySelector('.modal2').style.display = 'none';
 }
+
+function displayTodaysWorkout() {
+  const container = document.getElementById("exerciseSummaryContainer");
+  container.innerHTML = ""; // ✅ only clear once
+
+  const workouts = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
+  const today = new Date().toISOString().split("T")[0];
+
+  const todaysWorkout = workouts.find(w => w.date === today);
+  if (!todaysWorkout) return;
+
+  // ✅ Hide main if workout exists
+  const mainElement = document.querySelector("main");
+  if (mainElement) mainElement.style.display = "none";
+
+  // ✅ Loop through all exercises and render them
+  todaysWorkout.workout.forEach(entry => {
+    const box = document.createElement("div");
+    box.classList.add("exercise-box");
+
+    const heading = document.createElement("h3");
+    heading.textContent = entry.exercise;
+    box.appendChild(heading);
+
+	let setCount = 1;
+    // Add each set as a paragraph
+    entry.sets.forEach(set => {
+      const p = document.createElement("p");
+      p.textContent = `${setCount}: ${set.weight}lbs, ${set.reps} reps`;
+      box.appendChild(p);
+	  setCount++
+    });
+
+    container.appendChild(box); // ✅ Append this box to the container
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  displayTodaysWorkout();
+});
