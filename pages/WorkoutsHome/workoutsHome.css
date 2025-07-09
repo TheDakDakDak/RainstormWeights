@@ -239,6 +239,55 @@ h2 + p {
   text-align: center;
 }
 
+#repsForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+  padding: 20px;
+}
+
+#repsForm h3 {
+  font-size: 18px;
+}
+
+#repsForm label {
+  display: block;
+  margin: 10px 0;
+  font-size: 16px;
+  color: black;
+}
+
+#repsForm input[type="number"] {
+  padding: 8px;
+  width: 80px;
+  margin-left: 10px;
+  border: 2px solid #46c53b;
+  border-radius: 6px;
+}
+
+#saveSet {
+  padding: 10px 40px;
+  font-size: 16px;
+  border: 2px solid #f7cd16;
+  background: #46c53b;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+#backToExercises {
+  margin-top: 2vh;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 2px solid #f7cd16;
+  background: #46c53b;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
 
 
 
