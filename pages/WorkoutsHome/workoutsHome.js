@@ -1,3 +1,5 @@
+let selectedDate = new Date();
+selectedDate.setHours(12);
 let currentWorkout = {
   date: null,
   workout: []
@@ -27,6 +29,7 @@ const exercisesByPart = {
 //Shows today's workout information on page load
 window.addEventListener("DOMContentLoaded", () => {
   displayTodaysWorkout();
+  updateDateDisplay();
 });
 
 //Bring up the muscle group selection menu
@@ -100,10 +103,10 @@ document.querySelector('#saveSet').addEventListener('click', () => {
 
   delBtn.addEventListener("click", () => {
     const saved = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
-    const today = new Date().toISOString().split("T")[0];
-    const todayWorkout = saved.find(w => w.date === today);
-    if (todayWorkout) {
-      const exerciseEntry = todayWorkout.workout.find(e => e.exercise === currentExercise);
+    const dateKey = selectedDate.toISOString().split("T")[0];
+    const todaysWorkout = saved.find(w => w.date === dateKey);
+    if (todaysWorkout) {
+      const exerciseEntry = todaysWorkout.workout.find(e => e.exercise === currentExercise);
       if (exerciseEntry) {
         exerciseEntry.sets.splice(setNumber - 1, 1);
         localStorage.setItem("savedWorkouts", JSON.stringify(saved));
@@ -139,6 +142,18 @@ document.querySelector('#backToExercises').addEventListener('click', () => { //B
   document.querySelector('#exerciseSelect').style.display = 'block';
 });
 
+//Date arrows
+document.getElementById("arrowLeft").addEventListener("click", () => {
+  selectedDate.setDate(selectedDate.getDate() - 1);
+  updateDateDisplay();
+  displayTodaysWorkout();
+});
+document.getElementById("arrowRight").addEventListener("click", () => {
+  selectedDate.setDate(selectedDate.getDate() + 1);
+  updateDateDisplay();
+  displayTodaysWorkout();
+});
+
 /*FUNCTIONS
 ###################################################
 ###################################################
@@ -149,7 +164,7 @@ document.querySelector('#backToExercises').addEventListener('click', () => { //B
 
 //Muscle group selection menu
 function workoutMenu() {
-  const dateText = new Date().toISOString().split("T")[0];
+  const dateText = selectedDate.toISOString().split("T")[0];
   currentWorkout.date = dateText;
 
   // load whatever's already saved for today (or start fresh)
@@ -196,10 +211,21 @@ function displayTodaysWorkout() {
   container.innerHTML = ""; 
 
   const workouts = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
-  const today = new Date().toISOString().split("T")[0];
+  const dateKey = selectedDate.toISOString().split("T")[0];
 
-  const todaysWorkout = workouts.find(w => w.date === today);
-  if (!todaysWorkout) return;
+  const todaysWorkout = workouts.find(w => w.date === dateKey);
+  
+  if (!todaysWorkout || todaysWorkout.workout.length === 0) {
+  const mainElement = document.querySelector("main");
+  if (mainElement) mainElement.style.display = "flex";
+  return;
+}
+  
+  currentWorkout.date = dateKey;
+  currentWorkout.workout = todaysWorkout.workout.map(entry => ({
+  exercise: entry.exercise,
+  sets: [...entry.sets]
+  }));
 
  
   const mainElement = document.querySelector("main");
@@ -232,22 +258,19 @@ function displayTodaysWorkout() {
 
 
 	addSetBtn.addEventListener("click", () => {
-		currentExercise = entry.exercise;
+	currentExercise = entry.exercise;
 
-  
-		const dateText = new Date().toISOString().split("T")[0];
-		currentWorkout.date = dateText;
+	// Use the currently selected date, not today's date
+	const dateText = selectedDate.toISOString().split("T")[0];
+	currentWorkout.date = dateText;
 
-  
-		document.querySelector(".modal").style.display = "flex";
+	document.querySelector(".modal").style.display = "flex";
 
-  
-		document.getElementById("bodyPartSelect").style.display = "none";
-		document.getElementById("exerciseSelect").style.display = "none";
-		document.getElementById("repsForm").style.display = "block";
+	document.getElementById("bodyPartSelect").style.display = "none";
+	document.getElementById("exerciseSelect").style.display = "none";
+	document.getElementById("repsForm").style.display = "block";
 
-  
-		document.getElementById("exerciseHeading").textContent = entry.exercise;
+	document.getElementById("exerciseHeading").textContent = entry.exercise;
 	});
 
 	headingContainer.appendChild(heading);
@@ -261,7 +284,7 @@ function displayTodaysWorkout() {
       p.textContent = `${setCount}: ${set.weight}lbs, ${set.reps} reps`;
 
       const delBtn = document.createElement("button");
-      delBtn.textContent = "D";
+      delBtn.textContent = "-";
       delBtn.style.marginLeft = "8px";
 	  delBtn.style.backgroundColor = "red";
 	  delBtn.style.color = "white";
@@ -274,36 +297,38 @@ function displayTodaysWorkout() {
       delBtn.title = "Delete this set";
 
       delBtn.addEventListener("click", () => {
-	  const saved = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
-	  const today = new Date().toISOString().split("T")[0];
-	  const todayWorkout = saved.find(w => w.date === today);
-	  if (todayWorkout) {
-	  const exerciseEntry = todayWorkout.workout.find(e => e.exercise === entry.exercise);
-	  if (exerciseEntry) {
-      exerciseEntry.sets.splice(setIndex, 1);
+	const saved = JSON.parse(localStorage.getItem("savedWorkouts")) || [];
+	const dateKey = selectedDate.toISOString().split("T")[0];
+	const todaysWorkout = saved.find(w => w.date === dateKey);
 
-      
-      if (exerciseEntry.sets.length === 0) {
-        
-        todayWorkout.workout = todayWorkout.workout.filter(e => e.exercise !== entry.exercise);
-      }
+	if (todaysWorkout) {
+		const exerciseEntry = todaysWorkout.workout.find(e => e.exercise === entry.exercise);
+		if (exerciseEntry) {
+			exerciseEntry.sets.splice(setIndex, 1);
 
-      
-      if (todayWorkout.workout.length === 0) {
-        const index = saved.findIndex(w => w.date === today);
-        if (index !== -1) {
-          saved.splice(index, 1);
-        }
-        document.querySelector("main").style.display = "flex";
-      }
+			if (exerciseEntry.sets.length === 0) {
+				todaysWorkout.workout = todaysWorkout.workout.filter(e => e.exercise !== entry.exercise);
+			}
 
-      localStorage.setItem("savedWorkouts", JSON.stringify(saved));
-	  
-	  const updatedWorkout = saved.find(w => w.date === today);
-      currentWorkout = updatedWorkout ? JSON.parse(JSON.stringify(updatedWorkout)) : { date: today, workout: [] };
-      displayTodaysWorkout(); 
-    }
-  }
+			if (todaysWorkout.workout.length === 0) {
+				const index = saved.findIndex(w => w.date === dateKey);
+				if (index !== -1) {
+					saved.splice(index, 1);
+				}
+				document.querySelector("main").style.display = "flex";
+			}
+
+			localStorage.setItem("savedWorkouts", JSON.stringify(saved));
+
+			// Update the in-memory object
+			const updatedWorkout = saved.find(w => w.date === dateKey);
+			currentWorkout = updatedWorkout
+				? { date: dateKey, workout: JSON.parse(JSON.stringify(updatedWorkout.workout)) }
+				: { date: dateKey, workout: [] };
+
+			displayTodaysWorkout();
+		}
+	}
 });
 
       p.appendChild(delBtn);
@@ -325,25 +350,40 @@ function showToast(message) { //Lets user know that a set was successfully added
 }
 
 function dateSelect() {
-	let dateInput = document.querySelector('#dateData').value;
-	let [year1, month1, day1] = dateInput.split("-");
-	
-	switch (month1) {
-        case "01": month1 = "Jan"; break;
-        case "02": month1 = "Feb"; break;
-        case "03": month1 = "Mar"; break;
-        case "04": month1 = "Apr"; break;
-        case "05": month1 = "May"; break;
-        case "06": month1 = "Jun"; break;
-        case "07": month1 = "Jul"; break;
-        case "08": month1 = "Aug"; break;
-        case "09": month1 = "Sep"; break;
-        case "10": month1 = "Oct"; break;
-        case "11": month1 = "Nov"; break;
-        case "12": month1 = "Dec"; break;
-    }
-	document.querySelector('#today').innerText = `${month1} ${day1}, ${year1}`;
-	
-	
-	document.querySelector('.modal2').style.display = 'none';
+  const dateInput = document.querySelector('#dateData').value;
+  if (!dateInput) return;
+
+  const [year, month, day] = dateInput.split('-').map(Number);
+  selectedDate = new Date(year, month - 1, day, 12);
+  updateDateDisplay();
+  displayTodaysWorkout();
+
+  document.querySelector('.modal2').style.display = 'none';
+}
+
+function updateDateDisplay() {
+  const display = document.getElementById("today");
+
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  const selected = new Date(selectedDate);
+  selected.setHours(12, 0, 0, 0); // normalize
+
+  if (selected.toDateString() === today.toDateString()) {
+    display.textContent = "Today";
+  } else if (selected.toDateString() === yesterday.toDateString()) {
+    display.textContent = "Yesterday";
+  } else if (selected.toDateString() === tomorrow.toDateString()) {
+    display.textContent = "Tomorrow";
+  } else {
+    const options = { weekday: "long", month: "short", day: "numeric", year: "numeric" };
+    display.textContent = selected.toLocaleDateString(undefined, options);
+  }
 }
