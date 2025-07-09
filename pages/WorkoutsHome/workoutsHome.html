@@ -19,7 +19,7 @@
 			<img src="../../media/images/rainstormweightslogo_transparent.png">
 		</div>
 		<div class="addWorkoutPlus">
-			<img id="plussignclass" src="../../media/images/plussign.jpg">
+			<img id="plussignclass" title="Add a new exercise to this workout." src="../../media/images/plussign.jpg">
 		</div>
 	</header>
 	<main>
@@ -32,15 +32,18 @@
 	<!--Modals -->
 	<div class="modal" id="modalContainer">
 		<div id="modalWindow">
-			<img id="close" src="../../media/images/closeIcon.png">
+			<img class="close" src="../../media/images/closeIcon.png">
 			<div id="bodyPartSelect">
 				<h3>Select Muscle Group</h3>
 				<ul>
 					<li class="body-part" data-part="chest">Chest</li>
-					<li class="body-part" data-part="legs">Legs</li>
-					<li class="body-part" data-part="arms">Arms</li>
-					<li class="body-part" data-part="shoulders">Shoulders</li>
 					<li class="body-part" data-part="back">Back</li>
+					<li class="body-part" data-part="shoulders">Shoulders</li>
+					<li class="body-part" data-part="biceps">Biceps</li>
+					<li class="body-part" data-part="triceps">Triceps</li>
+					<li class="body-part" data-part="forearms">Forearms</li>
+					<li class="body-part" data-part="legs">Legs</li>
+					<li class="body-part" data-part="abs">Abs</li>
 				</ul>
 			</div>
 			<div id="exerciseSelect" style="display: none;">
@@ -63,7 +66,7 @@
 	background:#333; color:white; padding:10px 20px; border-radius:5px; z-index:999;"></div>
 	<div class="modal2" id="calendarContainer">
 		<div id="calendarWindow">
-			<img id="close2" src="../../media/images/closeIcon.png">
+			<img class="close" src="../../media/images/closeIcon.png">
 			<h3>Enter Date:</h3>
 			<form>
 				<input type="date" id="dateData" class="dateDataClass">

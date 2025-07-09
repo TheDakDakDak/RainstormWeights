@@ -33,7 +33,9 @@ header {
 }
 
 #plussignclass {
-	height: 90%;
+	height: 65%;
+	margin-top: 5%;
+	margin-left: 70%;
 }
 
 #plussignclass:hover {
@@ -179,13 +181,13 @@ h2 + p {
 }
 
 /*Close buttons*/
-#close, #close2 {
+.close, .close2 {
 	width: 1.5vw;
 	margin: 1vw 1vw 0 0;
 	align-self: flex-end;
 }
 
-#close:hover, #close2:hover {
+.close:hover, .close2:hover {
   cursor: pointer;
 }
 
