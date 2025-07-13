@@ -6,6 +6,10 @@ let currentWorkout = {
 };
 let currentExercise = null;
 
+fetch('https://rw-backend.onrender.com/api/test')
+  .then(res => res.json())
+  .then(data => console.log(data.message));
+
 //Object containing keys mapped to lists of corresponding exercises.
 const exercisesByPart = {
 	chest: ["Bench Press", "Incline Bench Press", "Dumbbell Flyes", "Push-ups"],
@@ -57,6 +61,10 @@ document.querySelector('#saveSet').addEventListener('click', () => {
   const weight = document.querySelector('#weightInput').value;
 
   if (!reps || !weight || !currentExercise) return;
+  if (reps <= 0 || weight < 0) {
+	  showToast("Please enter valid values");
+	  return;
+  }
 
   let exerciseEntry = currentWorkout.workout.find(e => e.exercise === currentExercise);
   if (!exerciseEntry) {
